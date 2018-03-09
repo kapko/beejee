@@ -2,19 +2,39 @@
   <button>Create New Item</button>
 </div>
 
-<app-create></app-create>
+<app-create postId="2"></app-create>
 
 <table class="ui celled table">
   <thead>
-    <tr><th>User</th>
-    <th>Email</th>
-    <th>Text</th>
-    <th>Status</th>
-    <th>Image</th>
-    <th>Actions</th>
-  </tr></thead>
+    <tr>
+      <th 
+        (click)="sortData('id', id = !id)">#
+        <span *ngIf="id">&or;</span>
+        <span *ngIf="!id">&and;</span>
+      </th>
+      <th 
+        (click)="sortData('username', user = !user)">User
+        <span *ngIf="user">&or;</span>
+        <span *ngIf="!user">&and;</span>
+      </th>
+      <th 
+        (click)="sortData('email', email = !email)">Email 
+        <span *ngIf="email">&or;</span>
+        <span *ngIf="!email">&and;</span>
+      </th>
+      <th>Text</th>
+      <th (click)="sortData('status', status = !status)">Status
+        <span *ngIf="status">&or;</span>
+        <span *ngIf="!status">&and;</span>
+      </th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
   <tbody>
     <tr *ngFor="let item of posts">
+      <td>{{item.id}}</td>
       <td>{{item.username}}</td>
       <td>{{item.email}}</td>
       <td>{{item.text}}</td>
@@ -24,26 +44,15 @@
         [src]="item.image_path"  
         style="width: 200px; height: auto;">
       </td>
-      <td>
-        <button>Edit</button>
-        <button>Delete</button>
-      </td>
+      <td><button>Edit</button></td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr><th colspan="3">
-      <div class="ui right floated pagination menu">
-        <a class="icon item">
-          <i class="left chevron icon"></i>
-        </a>
-        <a class="item">1</a>
-        <a class="item">2</a>
-        <a class="item">3</a>
-        <a class="item">4</a>
-        <a class="icon item">
-          <i class="right chevron icon"></i>
-        </a>
-      </div>
-    </th>
-  </tr></tfoot>
+
 </table>
+
+<div>
+  <b 
+    class="item" 
+    *ngFor="let i of pages; let page = index;" 
+    (click)="pagePagination(page + 1)">{{page + 1}}</b>
+</div>

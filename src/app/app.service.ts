@@ -14,7 +14,7 @@ export class AppService{
     return this.http.post(this.postURL, data);
   }
 
-  getPosts(url: string): Observable<any> {
+  getPosts(url: string = ''): Observable<any> {
     return this.http.get(this.getURL + url).map(items => items.json())
   }
 

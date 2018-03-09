@@ -9,19 +9,24 @@ import { ImageResult, ResizeOptions } from 'ng2-imageupload';
   templateUrl: './create.html',
 })
 export class CreateEditComponent {
+  @Input() postId: string;
+
   image: File;
  
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private appService: AppService
   ) {
+    console.log(this.postId);
+  }
+
+  ngOnChanges(): void {
+    console.log('postId', this.postId);
   }
 
   uploadFile(event: any): void {
     let fileList: FileList = event.target.files;
-    if(fileList.length) {
-        this.image = fileList[0];
-    }
+    this.image = (fileList.length) ? fileList[0] : null;
   }
 
   submitForm(data: PostDataInterface): void{
@@ -36,5 +41,4 @@ export class CreateEditComponent {
       console.log('response', item);
     });
   }
-
 }
