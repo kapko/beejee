@@ -9,13 +9,7 @@ import { ImageResult, ResizeOptions } from 'ng2-imageupload';
   templateUrl: './create.html',
 })
 export class CreateEditComponent {
-  public file_srcs: string[] = [];
   image: File;
-  src: string = "";
-  resizeOptions: ResizeOptions = {
-      resizeMaxHeight: 320,
-      resizeMaxWidth: 240
-  };
  
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -23,15 +17,9 @@ export class CreateEditComponent {
   ) {
   }
 
-  selected(imageResult: any) {
-    this.src = imageResult.resized
-        && imageResult.resized.dataURL
-        || imageResult.dataURL;
-  }
-
   uploadFile(event: any): void {
     let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
+    if(fileList.length) {
         this.image = fileList[0];
     }
   }
