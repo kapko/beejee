@@ -1,8 +1,8 @@
 <div>
-  <button>Create New Item</button>
+  <button class="ui button" (click)="showForm = true">Create New Post</button>
 </div>
 
-<app-create postId="2"></app-create>
+<app-create *ngIf="showForm" postId="postId"></app-create>
 
 <table class="ui celled table">
   <thead>
@@ -44,10 +44,9 @@
         [src]="item.image_path"  
         style="width: 200px; height: auto;">
       </td>
-      <td><button>Edit</button></td>
+      <td><button (click)="editPost(item.id)">Edit</button></td>
     </tr>
   </tbody>
-
 </table>
 
 <div>

@@ -16,6 +16,8 @@ export class HomeComponent {
   status:boolean = true;
   pages: any = [];
 
+  showForm: boolean = false;
+
   sort_field: string = 'name';
   sort_direction: string = 'asc';
   page: number = 1;
@@ -55,6 +57,11 @@ export class HomeComponent {
   pagePagination(page: number): void {
     this.page = page;
     this.getAllPosts();
+  }
+
+  editPost(id: number): void {
+    this.showForm = true;
+    this.postId = id;
   }
 
 }

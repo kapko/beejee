@@ -1,7 +1,5 @@
-## angular2-seed
-
-A simple starter project demonstrating the basic concepts of Angular 2.
-
+## beejee
+simple blog page
 
 ### Usage
 - Clone or fork this repository

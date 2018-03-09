@@ -18,5 +18,29 @@
     <input type="file" (change)="uploadFile($event)" />
   </div>
 
-  <button class="ui button" type="submit">Submit</button>
+  <h1 *ngIf="showLoader">Loading ... </h1>
+
+  <div *ngIf="showPreview" class="ui list">
+    <h2>Pls have a look on your post, before submiting, thanks.</h2>
+    <h3><b>Name: </b> {{previewData.username}}</h3>
+    <h3><b>Email: </b>{{previewData.email}}</h3>
+    <h3><b>Text: </b>{{previewData.email}}</h3>
+    <h3><b>Image: </b>Here your image :)</h3>
+
+    <button [disabled]="form.invalid" class="ui button" type="submit">Submit</button>
+    <span class="ui button" (click)="showPreview = false">Cancel</span>
+  </div>
+
+  <button [disabled]="form.invalid" class="ui button" (click)="previewPost(form.value)">preview</button>
 </form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
