@@ -1,42 +1,41 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router';
-import { rootRouterConfig } from './app.routes';
 import { AppComponent } from './app.component';
-import { GithubService } from './github/shared/github.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-
-import { AboutComponent } from './about/about.component';
+// components
 import { HomeComponent } from './home/home.component';
-import { RepoBrowserComponent } from './github/repo-browser/repo-browser.component';
-import { RepoListComponent } from './github/repo-list/repo-list.component';
-import { RepoDetailComponent } from './github/repo-detail/repo-detail.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { ContactComponent } from './contact/contact.component';
+import { CreateEditComponent } from './create/create';
+import { Ng2ImgToolsModule } from 'ng2-img-tools';
+import { Ng2FileInputModule } from 'ng2-file-input';
+import { AppService } from './app.service';
+import { ImageUploadModule } from 'ng2-imageupload';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
-    RepoBrowserComponent,
-    RepoListComponent,
-    RepoDetailComponent,
     HomeComponent,
-    ContactComponent
+    CreateEditComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    Ng2FileInputModule.forRoot(),
     ReactiveFormsModule,
+    Ng2ImgToolsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: true })
+    ImageUploadModule
   ],
   providers: [
-    GithubService
+    AppService,
+  ],
+  entryComponents: [
+    HomeComponent,
+    CreateEditComponent,
+    AppComponent,
   ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule {
-
-}
+export class AppModule {}
