@@ -3,6 +3,7 @@ export interface PostDataInterface {
   email: string;
   image: string;
   username: string;
+  status: number;
 }
 
 export interface Post {

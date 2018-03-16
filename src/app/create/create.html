@@ -1,24 +1,43 @@
-<form class="ui form" #form="ngForm" (ngSubmit)="submitForm(form.value)">
-  <div class="field">
+<form class="ui form" [formGroup]="form">
+  <div class="field" *ngIf="!postEditValue">
     <label>User Name</label>
-    <input type="text" name="username" placeholder="user name" ngModel required>
+    <input 
+      type="text"
+      [disabled]="true"
+      formControlName="username" 
+      placeholder="user name">
   </div>
 
-  <div class="field">
+  <div class="field" *ngIf="!postEditValue">
     <label>Email</label>
-    <input type="email" name="email" placeholder="email" ngModel required>
+    <input 
+      type="email" 
+      formControlName="email" 
+      placeholder="email">
   </div>
 
   <div class="field">
     <label>Text</label>
-    <input type="text" name="text" placeholder="text" ngModel required>
+    <input 
+      type="text" 
+      formControlName="text" 
+      placeholder="text">
+  </div>
+
+  <div class="field" *ngIf="postEditValue">
+    <label>Status</label>
+    <input 
+      type="number" 
+      formControlName="status" 
+      placeholder="text">
   </div>
 
   <div>  
-    <input type="file" (change)="uploadFile($event)" />
+    <input 
+      *ngIf="!postEditValue"
+      type="file" 
+      (change)="uploadFile($event)" />
   </div>
-
-  <h1 *ngIf="showLoader">Loading ... </h1>
 
   <div *ngIf="showPreview" class="ui list">
     <h2>Pls have a look on your post, before submiting, thanks.</h2>
@@ -27,11 +46,21 @@
     <h3><b>Text: </b>{{previewData.email}}</h3>
     <h3><b>Image: </b>Here your image :)</h3>
 
-    <button [disabled]="form.invalid" class="ui button" type="submit">Submit</button>
+    <button  class="ui button" (click)="submitForm(form.value)">Submit</button>
     <span class="ui button" (click)="showPreview = false">Cancel</span>
   </div>
 
-  <button [disabled]="form.invalid" class="ui button" (click)="previewPost(form.value)">preview</button>
+  <h1 *ngIf="showLoader">Loading ... </h1>
+
+  <button 
+    *ngIf="!postEditValue" 
+    class="ui button" 
+    (click)="previewData = form.value; showPreview = true">preview</button>
+  <button 
+    *ngIf="postEditValue" 
+    class="ui button"
+    (click)="updatePost(form.value)" 
+    type="submit">update post</button>
 </form>
 
 <br>

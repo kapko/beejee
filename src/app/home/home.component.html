@@ -1,8 +1,10 @@
 <div>
-  <button class="ui button" (click)="showForm = true">Create New Post</button>
+  <button class="ui button" *ngIf="!showForm" (click)="showForm = true">Create New Post</button>
+  <button class="ui button" *ngIf="showForm" (click)="editPostData = null; showForm = false">Cancel</button>
+  <button class="ui button" (click)="logout()">Logout</button>
 </div>
 
-<app-create *ngIf="showForm" postId="postId"></app-create>
+<app-create *ngIf="showForm" [post]="editPostData"></app-create>
 
 <table class="ui celled table">
   <thead>
@@ -28,7 +30,7 @@
         <span *ngIf="!status">&and;</span>
       </th>
       <th>Image</th>
-      <th>Actions</th>
+      <th *ngIf="showActions">Actions</th>
     </tr>
   </thead>
 
@@ -44,14 +46,14 @@
         [src]="item.image_path"  
         style="width: 200px; height: auto;">
       </td>
-      <td><button (click)="editPost(item.id)">Edit</button></td>
+      <td *ngIf="showActions"><button (click)="editPostData = item; showForm = true;">Edit</button></td>
     </tr>
   </tbody>
 </table>
-
 <div>
+  <span>Pagination </span>
   <b 
     class="item" 
     *ngFor="let i of pages; let page = index;" 
-    (click)="pagePagination(page + 1)">{{page + 1}}</b>
+    (click)="pagePagination(page + 1)">{{page + 1}} </b>
 </div>

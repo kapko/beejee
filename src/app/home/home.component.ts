@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import { Post } from '../app.interface';
 import { AppService } from '../app.service';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +13,7 @@ export class HomeComponent {
   id:boolean = true;
   email:boolean = true;
   status:boolean = true;
+  showActions:boolean = false;
   pages: any = [];
 
   showForm: boolean = false;
@@ -21,12 +21,18 @@ export class HomeComponent {
   sort_field: string = 'name';
   sort_direction: string = 'asc';
   page: number = 1;
-  postId: number = null;
+  editPostData: Post = null;
 
   constructor(
     private appService: AppService
   ){
     this.getAllPosts();
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('auth') === 'admin') {
+      this.showActions = true;
+    }
   }
 
   sortData(field: string, sort: boolean): void {
@@ -59,9 +65,9 @@ export class HomeComponent {
     this.getAllPosts();
   }
 
-  editPost(id: number): void {
-    this.showForm = true;
-    this.postId = id;
+  logout(): void {
+    localStorage.removeItem('auth');
+    location.reload();
   }
 
 }
